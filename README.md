@@ -14,6 +14,8 @@ Este é um aplicativo de chat em tempo real construído com Node.js, Express e S
 - Node.js (versão 14 ou superior)
 - npm (gerenciador de pacotes do Node.js)
 
+## Estrutura do Projeto
+
 ## Instalação
 
 1. Clone o repositório:
@@ -47,6 +49,19 @@ Este é um aplicativo de chat em tempo real construído com Node.js, Express e S
 - SQLite
 - HTML5/CSS3
 - JavaScript
+
+## Esstrutura
+```
+socket-io-chat/
+├── backend/
+│   └── server.js
+├── frontend/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+├── package.json
+└── README.md
+```
 
 ## Licença
 Documentação do projeto: https://socket.io/docs
