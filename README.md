@@ -63,6 +63,9 @@ socket-io-chat/
 └── README.md
 ```
 
+## Obserevações
+- caso não consiga executar via vercel e render, tente baixar o projeto e executar localmente.
+
 ## Licença
 Documentação do projeto: https://socket.io/docs
 
