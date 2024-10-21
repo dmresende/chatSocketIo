@@ -41,8 +41,11 @@ if (cluster.isPrimary) {
 
   const __dirname = dirname(fileURLToPath(import.meta.url));
 
+  // Servir arquivos estáticos da pasta frontend
+  app.use(express.static(join(__dirname, '../frontend')));
+
   app.get('/', (req, res) => {
-    res.sendFile(join(__dirname, 'index.html'));
+    res.sendFile(join(__dirname, '../frontend/index.html'));
   });
 
   io.on('connection', async (socket) => {
