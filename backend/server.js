@@ -8,6 +8,7 @@ import { open } from 'sqlite';
 import { availableParallelism } from 'node:os';
 import cluster from 'node:cluster';
 import { createAdapter, setupPrimary } from '@socket.io/cluster-adapter';
+import cors from 'cors';
 
 if (cluster.isPrimary) {
   const numCPUs = availableParallelism();
@@ -44,9 +45,14 @@ if (cluster.isPrimary) {
   // Servir arquivos estáticos da pasta frontend
   app.use(express.static(join(__dirname, '../frontend')));
 
-  app.get('/', (req, res) => {
-    res.sendFile(join(__dirname, '../frontend/index.html'));
-  });
+  // app.get('/', (req, res) => {
+  //   res.sendFile(join(__dirname, '../frontend/index.html'));
+  // });
+  app.use(cors({
+    origin: 'https://seuprojeto.vercel.app', // Substitua pelo URL do frontend na Vercel
+    methods: ['GET', 'POST'],
+    credentials: true // Se você precisar de cookies ou credenciais
+  }));
 
   io.on('connection', async (socket) => {
     socket.on('chat message', async (msg, clientOffset, callback) => {
