@@ -8,13 +8,12 @@ import { open } from 'sqlite';
 import { availableParallelism } from 'node:os';
 import cluster from 'node:cluster';
 import { createAdapter, setupPrimary } from '@socket.io/cluster-adapter';
-import cors from 'cors';
 
 if (cluster.isPrimary) {
   const numCPUs = availableParallelism();
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork({
-      PORT: 3000 + i
+      PORT: process.env.PORT || 3000
     });
   }
 
@@ -37,24 +36,26 @@ if (cluster.isPrimary) {
   const server = createServer(app);
   const io = new Server(server, {
     connectionStateRecovery: {},
-    adapter: createAdapter()
+    adapter: createAdapter(),
+    cors: {
+      origin: ["https://chat-socket-io-dusky.vercel.app", "http://localhost:3000"],
+      methods: ["GET", "POST"],
+      credentials: true
+    }
   });
 
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-
-  // Servir arquivos estáticos da pasta frontend
-  app.use(express.static(join(__dirname, '../frontend')));
-
-  // app.get('/', (req, res) => {
-  //   res.sendFile(join(__dirname, '../frontend/index.html'));
-  // });
-  app.use(cors({
-    origin: 'https://seuprojeto.vercel.app', // Substitua pelo URL do frontend na Vercel
-    methods: ['GET', 'POST'],
-    credentials: true // Se você precisar de cookies ou credenciais
-  }));
+  // Configuração de CORS para Express
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://chat-socket-io-dusky.vercel.app');
+    res.header('Access-Control-Allow-Methods', 'GET, POST');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+  });
 
   io.on('connection', async (socket) => {
+    console.log('Um usuário conectou:', socket.id);
+
     socket.on('chat message', async (msg, clientOffset, callback) => {
       let result;
       try {
@@ -63,11 +64,16 @@ if (cluster.isPrimary) {
         if (e.errno === 19 /* SQLITE_CONSTRAINT */) {
           callback();
         } else {
+          console.error('Erro ao salvar mensagem:', e);
         }
         return;
       }
       io.emit('chat message', msg, result.lastID);
       callback();
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Usuário desconectado:', socket.id);
     });
 
     if (!socket.recovered) {
@@ -79,13 +85,14 @@ if (cluster.isPrimary) {
           }
         )
       } catch (e) {
+        console.error('Erro ao recuperar mensagens:', e);
       }
     }
   });
 
-  const port = process.env.PORT;
+  const port = process.env.PORT || 3000;
 
   server.listen(port, () => {
-    console.log(`server running at http://localhost:${port}`);
+    console.log(`Servidor rodando na porta ${port}`);
   });
 }
