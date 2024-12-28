@@ -1,20 +1,26 @@
-body {
+/* Reset básico */
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #f0f2f5;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #1e1e2f;
+  color: #f0f0f0;
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-h1 {
-  text-align: center;
-  padding: 1rem;
-  background-color: #4a69bd;
+header {
+  background: linear-gradient(90deg, #4a69bd, #6c5ce7);
   color: white;
-  margin: 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #chat-container {
@@ -27,19 +33,21 @@ h1 {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 #messages > li {
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-  max-width: 80%;
+  padding: 0.8rem;
+  border-radius: 12px;
+  max-width: 70%;
   word-wrap: break-word;
   animation: fadeIn 0.3s ease-in-out;
 }
 
 #messages > li:nth-child(odd) {
-  background-color: #e3e3e3;
+  background-color: #3a3a4f;
   align-self: flex-start;
 }
 
@@ -47,50 +55,53 @@ h1 {
   background-color: #4a69bd;
   color: white;
   align-self: flex-end;
-  margin-left: auto;
 }
 
-#form {
-  display: flex;
+footer {
   padding: 1rem;
-  background-color: white;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+  background-color: #2e2e3f;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #input {
   flex-grow: 1;
-  border: 1px solid #ddd;
-  padding: 0.5rem 1rem;
+  border: none;
+  padding: 0.8rem;
   border-radius: 20px;
-  margin-right: 0.5rem;
   font-size: 1rem;
+  color: #1e1e2f;
 }
 
 #input:focus {
   outline: none;
-  border-color: #4a69bd;
+  box-shadow: 0 0 8px #4a69bd;
 }
 
 button {
   background-color: #4a69bd;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.8rem 1.5rem;
   border-radius: 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
   font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #3c5aa6;
-}
-
-#toggle-connection {
-  margin-left: 0.5rem;
+  background-color: #365a96;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

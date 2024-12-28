@@ -1,7 +1,5 @@
 import express from 'express';
 import { createServer } from 'node:http';
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
 import { Server } from 'socket.io';
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
@@ -44,7 +42,6 @@ if (cluster.isPrimary) {
     }
   });
 
-  // Configuração de CORS para Express
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'https://chat-socket-io-dusky.vercel.app');
     res.header('Access-Control-Allow-Methods', 'GET, POST');
@@ -61,7 +58,8 @@ if (cluster.isPrimary) {
       try {
         result = await db.run('INSERT INTO messages (content, client_offset) VALUES (?, ?)', msg, clientOffset);
       } catch (e) {
-        if (e.errno === 19 /* SQLITE_CONSTRAINT */) {
+        /* SQLITE_CONSTRAINT */
+        if (e.errno === 19) {
           callback();
         } else {
           console.error('Erro ao salvar mensagem:', e);
