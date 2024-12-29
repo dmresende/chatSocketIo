@@ -1,5 +1,8 @@
 let counter = 0;
-const socket = io();
+// const socket = io();
+socket = io("https://chatsocketio-x9ji.onrender.com", {
+  ackTimeout: 10000,
+});
 const form = document.getElementById("form");
 const input = document.getElementById("input");
 const messages = document.getElementById("messages");
