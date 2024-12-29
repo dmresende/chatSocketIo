@@ -34,7 +34,7 @@ Este é um aplicativo de chat em tempo real construído com Node.js, Express e S
    npm run dev
    ```
 
-4. Abra o navegador e acesse `http://localhost:3000`
+4. Abra o navegador e acesse `http://localhost:3000`, verifique a porta 3000 se está disponivel, caso contrário ajuste.
 
 ## Uso
 
@@ -52,15 +52,22 @@ Este é um aplicativo de chat em tempo real construído com Node.js, Express e S
 
 ## Esstrutura
 ```
-socket-io-chat/
+testeSocketIO/
 ├── backend/
-│   └── server.js
-├── frontend/
-│   ├── index.html
-│   ├── styles.css
-│   └── script.js
-├── package.json
-└── README.md
+│   ├── src/
+│   │   ├── config/
+│   │   │   └── database.js
+│   │   ├── server.js
+│   │   └── socket.js
+│   ├── chat.db
+│   └── package.json
+└── frontend/
+    └── public/
+        ├── index.html
+        ├── css/
+        │   └── styles.css
+        └── js/
+            └── chat.js
 ```
 
 ## Obserevações

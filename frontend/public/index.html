@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Chat em Tempo Real</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="chat-container">
+      <header class="chat-header">
+        <h1><i class="fas fa-comments"></i> Chat em Tempo Real</h1>
+        <button id="toggle-btn" class="connection-btn">
+          <i class="fas fa-plug"></i>
+          <span>Desconectar</span>
+        </button>
+      </header>
+
+      <main class="chat-main">
+        <div class="messages-container">
+          <ul id="messages"></ul>
+        </div>
+      </main>
+
+      <footer class="chat-footer">
+        <form id="form" action="">
+          <div class="input-container">
+            <input
+              id="input"
+              type="text"
+              placeholder="Digite sua mensagem..."
+              autocomplete="off"
+            />
+            <button type="submit" class="send-btn">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </form>
+      </footer>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/chat.js"></script>
+  </body>
+</html>
