@@ -17,7 +17,9 @@ app.use(express.static(frontendPath));
 
 // Rota principal
 app.get('/', (req, res) => {
-  res.sendFile(join(frontendPath, 'index.html'));
+  // res.sendFile(join(frontendPath, 'index.html'));
+  res.header('Access-Control-Allow-Origin', 'https://chat-socket-io-dusky.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST');
 });
 
 const db = await initializeDatabase();
